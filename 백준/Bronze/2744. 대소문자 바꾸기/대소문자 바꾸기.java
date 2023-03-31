@@ -1,17 +1,16 @@
 import java.io.*;
-import java.util.*;
-// 대문자 65 ~ 90
-// 소문자 97 ~ 122
+
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         char[] arr = br.readLine().toCharArray();
-        for (char i : arr) {
-            if (i >= 'a' && i <= 'z') {
-                System.out.print((char)(Integer.valueOf(i) - 32));
+        for (int i = 0; i < arr.length; i++) {
+            if ('A' <= arr[i] && arr[i] <= 'Z') {
+                arr[i] = (char)('a' + arr[i] - 'A');
             } else {
-                System.out.print((char)(Integer.valueOf(i) + 32));
+                arr[i] = (char)('A' + arr[i] - 'a');
             }
+            System.out.print(arr[i]);
         }
     }
 }
