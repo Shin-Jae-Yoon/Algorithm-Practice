@@ -4,7 +4,7 @@ class Solution {
         int[] answer = new int[strlist.length];
         
         for (int i = 0; i < answer.length; i++) {
-            answer[i] = strlist[i].toCharArray().length;
+            answer[i] = strlist[i].length();
         }
         
         return answer;
