@@ -1,14 +1,8 @@
 class Solution {
     public long solution(long n) {
-        long answer = 0;
-        answer = (long)Math.sqrt(n);
-
-        if(n == (long)Math.pow(answer,2)) {
-            answer = (long)Math.pow(answer + 1 ,2);
-        } else {
-            answer = -1;
-        }
-
-        return answer;
+        if ((long)(Math.sqrt(n)) * (long)(Math.sqrt(n)) == n)
+            return (long)((Math.sqrt(n) + 1) * (Math.sqrt(n) + 1));
+        else
+            return -1;
     }
 }
