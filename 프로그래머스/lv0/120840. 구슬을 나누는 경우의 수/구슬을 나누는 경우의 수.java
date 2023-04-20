@@ -1,10 +1,26 @@
 class Solution {
-    public int solution(int balls, int share) {
-        return rec_func(balls, share);
+    static int N, M;
+    static int answer = 0;
+    static int[] selected;
+    
+    static void rec_func(int k) {
+        if (k == M + 1) {
+            answer++;
+        } else {
+            for (int cand = selected[k-1] + 1; cand <= N; cand++) {
+                selected[k] = cand;
+                rec_func(k + 1);
+                selected[k] = 0;
+            }
+        }
     }
-
-    static int rec_func(int balls, int share) {
-        if (balls == share || share == 0) return 1;
-        return rec_func((balls - 1), (share - 1)) + rec_func(balls - 1, share);
+    
+    public int solution(int balls, int share) {
+        N = balls;
+        M = share;
+        
+        selected = new int[M + 1];
+        rec_func(1);
+        return answer;
     }
 }
