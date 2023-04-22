@@ -1,20 +1,24 @@
 class Solution {
     public int solution(int a, int b) {
-        int answer = 0;
-
-        while (b % 2 == 0) {
-            b /= 2;
+        b = b / GCD(a, b);
+        
+        while (b != 1) {
+            if (b % 2 == 0)
+                b /= 2;
+            else if (b % 5 == 0)
+                b /= 5;
+            else
+                return 2;
         }
         
-        while (b % 5 == 0) {
-            b /= 5;
-        }
-        
-        if ((a / (double)b) % 1 == 0)
-            answer = 1;
+        return 1;
+    }
+    
+    int GCD(int a, int b) {
+        if (b == 0)
+            return a;
         else
-            answer = 2;
-
-        return answer;
+            return GCD(b, a % b);
     }
 }
+
