@@ -1,10 +1,10 @@
 # [level 0] 다음에 올 숫자 - 120924 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120924?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120924?language=java#) 
 
 ### 성능 요약
 
-메모리: 75.8 MB, 시간: 0.02 ms
+메모리: 74.4 MB, 시간: 0.01 ms
 
 ### 구분
 

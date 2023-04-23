@@ -11,9 +11,6 @@ class Solution {
             answer = common[common.length - 1] * (common[1] / common[0]);
         }
         
-        if (common[0] == 1 && common[1] == 1)
-            answer = 1;
-        
         return answer;
     }
 }
