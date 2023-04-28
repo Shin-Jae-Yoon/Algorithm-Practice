@@ -13,9 +13,12 @@
 
 select crcrh.history_id as HISTORY_ID,
     case
-        when datediff(end_date, start_date) < 7 then (datediff(end_date, start_date) + 1) * crcr.daily_fee
-        when datediff(end_date, start_date) < 30 then (datediff(end_date, start_date) + 1) * round(crcr.daily_fee * 0.95)
-        when datediff(end_date, start_date) < 90 then (datediff(end_date, start_date) + 1) * round(crcr.daily_fee * 0.92)
+        when datediff(end_date, start_date) < 7 
+            then (datediff(end_date, start_date) + 1) * crcr.daily_fee
+        when datediff(end_date, start_date) < 30 
+            then (datediff(end_date, start_date) + 1) * round(crcr.daily_fee * 0.95)
+        when datediff(end_date, start_date) < 90 
+            then (datediff(end_date, start_date) + 1) * round(crcr.daily_fee * 0.92)
         else (datediff(end_date, start_date) + 1) * round(crcr.daily_fee * 0.85)
         end as FEE
 from car_rental_company_car as crcr
@@ -24,6 +27,3 @@ join car_rental_company_discount_plan as crcdp on crcr.car_type = crcdp.car_type
 where crcr.car_type = '트럭'
 group by crcrh.history_id
 order by FEE desc, HISTORY_ID desc;
-
-
-
