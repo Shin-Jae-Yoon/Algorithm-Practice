@@ -1,20 +1,19 @@
-import java.util.Arrays;
-
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
+        Map<Integer, Integer> input = new HashMap<>();
 
-        for (int i = 0; i < nums.length - 1; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    result[0] = i;
-                    result[1] = j;
+        for (int i = 0; i < nums.length; i++) {
+            input.put(nums[i], i);
+        }
 
-                    return result;
-                }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+
+            if (input.containsKey(complement) && input.get(complement) != i) {
+                return new int[]{i, input.get(complement)};
             }
         }
 
-        return result;
+        return new int[]{};
     }
 }
