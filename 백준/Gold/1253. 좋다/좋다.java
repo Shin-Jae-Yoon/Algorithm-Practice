@@ -6,12 +6,15 @@ import java.util.StringTokenizer;
 import java.util.Arrays;
 
 public class Main {
+    private static int n;
+    private static long[] arr;
+
     public static void main(String[] args) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        long[] arr = new long[n];
-        
+        n = Integer.parseInt(br.readLine());
+        arr = new long[n];
+
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             arr[i] = Long.parseLong(st.nextToken());
@@ -22,29 +25,41 @@ public class Main {
         int goodNumber = 0;
 
         for (int targetIndex = 0; targetIndex < n; targetIndex++) {
-            int startIndex = 0;
-            int endIndex = n - 1;
-            long target = arr[targetIndex];
-
-            while (startIndex < endIndex) {
-                if (arr[startIndex] + arr[endIndex] == target) {
-                    if (startIndex != targetIndex && endIndex != targetIndex) {
-                        goodNumber++;
-                        break;   
-                    } else if (startIndex == targetIndex) {
-                        startIndex++;
-                    } else {
-                        endIndex--;
-                    }
-                } else if (arr[startIndex] + arr[endIndex] < target) {
-                    startIndex++;
-                } else {
-                    endIndex--;
-                }
+            if (isGoodNumber(targetIndex)) {
+                goodNumber++;
             }
         }
 
         sb.append(goodNumber);
         System.out.println(sb.toString());
+    }
+
+    private static boolean isGoodNumber(int targetIndex) {
+        int leftIndex = 0;
+        int rightIndex = n - 1;
+        long targetNumber = arr[targetIndex];
+
+        while (leftIndex < rightIndex) {
+            if (leftIndex == targetIndex) {
+                leftIndex++;
+                continue;
+            }
+
+            if (rightIndex == targetIndex) {
+                rightIndex--;
+                continue;
+            }
+
+            long sum = arr[leftIndex] + arr[rightIndex];
+            if (sum == targetNumber) {
+                return true;
+            } else if (sum < targetNumber) {
+                leftIndex++;
+            } else {
+                rightIndex--;
+            }
+        }
+
+        return false;
     }
 }
