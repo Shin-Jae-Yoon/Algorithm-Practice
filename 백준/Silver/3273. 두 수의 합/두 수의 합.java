@@ -1,33 +1,35 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         int x = Integer.parseInt(br.readLine());
-
-        int[] input = new int[n];
+        
+        int[] nums = new int[n];
         for (int i = 0; i < n; i++) {
-            input[i] = Integer.parseInt(st.nextToken());
+            nums[i] = Integer.parseInt(st.nextToken());
         }
-
-        int[] cnt = new int[1000001];
+        
+        boolean[] countArray = new boolean[x + 1];
+        
+        int result = 0;
         for (int i = 0; i < n; i++) {
-            cnt[input[i]]++;
+            int needed = x - nums[i];
+            
+            if (needed > 0 && needed < countArray.length && countArray[needed]) {
+                result++;
+            }
+
+            if (nums[i] < countArray.length) {
+                countArray[nums[i]] = true;
+            }
         }
 
-        int ans = 0;
-
-        for (int i = 1; i <= (x - 1) / 2; i++) {
-            if (i <= 1000000 && x - i <= 1000000)
-                if (cnt[i] == 1 && cnt[x-i] == 1)
-                    ans++;
-        }
-
-        bw.write(ans + "\n");
-        bw.flush();
+        System.out.println(result);
     }
 }
