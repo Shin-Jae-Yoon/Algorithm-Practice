@@ -18,37 +18,34 @@ public class Main {
         }
 
         for (int i = 0; i < n; i++) {
-            strfry(firstString[i], secondString[i]);
+            boolean isPossible = strfry(firstString[i], secondString[i]);
+
+            if (isPossible) {
+                System.out.println("Possible");
+            } else {
+                System.out.println("Impossible");
+            }
         }
     }
 
-    private static void strfry(String firstString, String secondString) {
-        int[] appearedFirstString = new int[200];
-        int[] appearedSecondString = new int[200];
+    private static boolean strfry(String firstString, String secondString) {
+        int[] appearedString = new int[26];
 
-        char[] firstStringToChar = firstString.toCharArray();
-        char[] secondStringToChar = secondString.toCharArray();
-
-        for (char alphabet : firstStringToChar) {
-            appearedFirstString[alphabet]++;
+        for (int i = 0; i < firstString.length(); i++) {
+            appearedString[firstString.charAt(i) - 'a']++;
         }
 
-        for (char alphabet : secondStringToChar) {
-            appearedSecondString[alphabet]++;
+        for (int i = 0; i < secondString.length(); i++) {
+            appearedString[secondString.charAt(i) - 'a']--;
         }
 
-        int count = 0;
-
-        for (int i = 'a'; i <= 'z'; i++) {
-            if (appearedFirstString[i] == appearedSecondString[i] && appearedFirstString[i] != 0) {
-                count += appearedFirstString[i];
+        boolean isPossible = true;
+        for (int i = 0; i < appearedString.length; i++) {
+            if (appearedString[i] != 0) {
+                isPossible = false;
             }
         }
 
-        if (count == firstStringToChar.length) {
-            System.out.println("Possible");
-        } else {
-            System.out.println("Impossible");
-        }
+        return isPossible;
     }
 }
