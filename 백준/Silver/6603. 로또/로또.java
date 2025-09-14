@@ -1,51 +1,54 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
     private static int N;
-    private static int R = 6;
-    private static int[] combinationList;
-    private static List<Integer> chooseList = new ArrayList<>();
+    private static final int R = 6;
+    private static int[] combinationList, chooseList;
+    private static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input;
 
-        while (!(input = br.readLine()).equals("0") && !input.isEmpty()) {
-            StringTokenizer st = new StringTokenizer(input);
+        while (true) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
 
+            if (N == 0) {
+                break;
+            }
+
             combinationList = new int[N];
+            chooseList = new int[R];
+
             for (int i = 0; i < N; i++) {
                 combinationList[i] = Integer.parseInt(st.nextToken());
             }
 
-            StringBuilder sb = new StringBuilder();
-            combination(0, 0, sb);
-            System.out.println(sb.toString());
+            combination(0, 0);
+            sb.append("\n");
         }
+
+        System.out.print(sb.toString());
     }
 
-    private static void combination(int index, int level, StringBuilder sb) {
+    private static void combination(int index, int level) {
         // base case
         if (level == R) {
-            for (Integer choose : chooseList) {
-                sb.append(choose);
-                sb.append(" ");
+            for (int choose : chooseList) {
+                sb.append(choose).append(" ");
             }
 
             sb.append("\n");
+            return;
         }
 
         // recursive case
         for (int i = index; i < N; i++) {
-            chooseList.add(combinationList[i]);
-            combination(i + 1, level + 1, sb);
-            chooseList.remove(chooseList.size() - 1);
+            chooseList[level] = combinationList[i];
+            combination(i + 1, level + 1);
         }
     }
 }
